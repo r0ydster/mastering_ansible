@@ -1,0 +1,47 @@
+---
+- name: Precheck playbook
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+
+  tasks: 
+    - name: What are the facts that were collcted?
+      debug:
+              var: ansible_facts
+
+    - name: display the value of ansible_facts.distribution
+      debug:
+              var: ansible_facts.distribution # ansible_facts['distribution']
+
+    - name: display the value of ansible_facts.os_family
+      debug:
+              var: ansible_facts.os_family
+
+    - name: Assert THAT ansible_facts.os_family IS Debian
+      assert:
+              that: ansible_facts.os_family == "Debian"
+
+#    - name: assert disk space available
+#      assert:
+#             that: ansible_mounts.size_available > ansible_mounts.size_total
+#
+
+    - name: Display ansible mounts
+      debug:
+              var: ansible_mounts
+
+    - name: Display the value for available size for /
+      debug:
+              var: ansible_mounts|json-query('[?mount == '/'].size_available')
+              #register: my_free_space
+              
+    - name: set a variable
+      set_fact:
+              my_free_space: "{{ ansible_mounts|json-query('[?mount == '/'].size_available') }}"
+
+    - name: display the var my_free_spcae
+      debug:
+              var: my_free_space
+
+
