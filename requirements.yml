@@ -1,0 +1,29 @@
+# required augmentations for controller
+
+roles:
+# from Bitbucket
+#- src: git+https://bitbucket.org/willthames/git-ansible-galaxy
+#  version: v1.4
+
+# from Bitbucket, alternative syntax and caveats
+#- src: https://bitbucket.org/willthames/hg-ansible-galaxy
+#  scm: hg
+
+- name: ansible-network.azure
+  source: https://galaxy.ansible.com
+
+collections:
+# install from ansible galaxy
+- name: community.vmware
+  source: https://galaxy.ansible.com
+
+# install from ansible galaxy
+- name: nginxinc.nginx_controller
+  source: https://galaxy.ansible.com
+  version: 3.8.0
+  
+# install from github
+- name: https://github.com/dell/ansible-powermax
+  type: git
+  version: master       # branch name 
+
